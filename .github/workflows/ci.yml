@@ -29,7 +29,7 @@ jobs:
         run: |
           cd src 
           dotnet build --configuration $config --no-restore
-          cd AspNetCoreMvcHtmx
+          cd RazorFragments
           docker build . -t aspnetcoremvchtmx
       - name: Test
         run: |

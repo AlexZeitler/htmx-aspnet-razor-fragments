@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexZeitler/AspNetCoreMvcHtmxTemplate.git"
+    "url": "git+https://github.com/AlexZeitler/RazorFragmentsTemplate.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlexZeitler/AspNetCoreMvcHtmxTemplate/issues"
+    "url": "https://github.com/AlexZeitler/RazorFragmentsTemplate/issues"
   },
-  "homepage": "https://github.com/AlexZeitler/AspNetCoreMvcHtmxTemplate#readme",
+  "homepage": "https://github.com/AlexZeitler/RazorFragmentsTemplate#readme",
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",

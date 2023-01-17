@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreMvcHtmx", "AspNetCoreMvcHtmx\AspNetCoreMvcHtmx.csproj", "{46101C3D-4CC3-4C6D-A868-E8AFD9DF3403}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorFragments", "RazorFragments\RazorFragments.csproj", "{46101C3D-4CC3-4C6D-A868-E8AFD9DF3403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreMvcHtmx.Tests", "AspNetCoreMvcHtmx.Tests\AspNetCoreMvcHtmx.Tests.csproj", "{E6BB0A13-D231-47E0-9CB7-8AA395B47528}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorFragments.Tests", "RazorFragments.Tests\RazorFragments.Tests.csproj", "{E6BB0A13-D231-47E0-9CB7-8AA395B47528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
