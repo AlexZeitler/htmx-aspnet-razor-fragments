@@ -1,0 +1,63 @@
+﻿@using Htmx.TagHelpers
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="htmx-config" includeAspNetAntiforgeryToken="true" />
+  <title>@ViewData["Title"] - AspNetCoreMvcHtmx</title>
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <script src="~/lib/htmx.org/dist/htmx.min.js"></script>
+</head>
+
+<body class="h-full">
+  <header class="bg-white drop-shadow-md">
+    <nav class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8" aria-label="Top">
+      <div class="flex items-center justify-between w-full py-6">
+        <div class="flex items-center">
+          <a href="#" class="text-base font-medium text-gray-600 hover:text-gray-400">
+            AspNetCoreMvcHtmx
+          </a>
+          <div class="hidden ml-10 space-x-8 lg:block">
+            <a asp-action="Index" asp-controller="Home" class="text-base font-medium text-gray-600 hover:text-gray-400"> Home </a>
+
+            <a asp-action="Privacy" asp-controller="Home" class="text-base font-medium text-gray-600 hover:text-gray-400"> Privacy </a>
+            <a asp-action="Index" asp-controller="Registration" class="text-base font-medium text-gray-600 hover:text-gray-400"> Registration </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="flex flex-wrap justify-center py-4 space-x-6 lg:hidden">
+
+        <a asp-page="/Index" class="text-base font-medium text-gray-600 hover:text-gray-400"> Home </a>
+
+        <a asp-page="/Privacy" class="text-base font-medium text-gray-600 hover:text-gray-400"> Privacy </a>
+        <a asp-page="/Registration" class="text-base font-medium text-gray-600 hover:text-gray-400"> Registration </a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="p-4 m-4">
+    <main role="main" class="pb-3">
+      @RenderBody()
+    </main>
+  </div>
+
+
+  <footer class="bg-white sticky top-[100vh] border-solid border-t border-t-gray-200">
+    <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
+
+      <div class="mt-8 md:mt-0 md:order-1">
+        <p class="text-base text-center text-gray-600">&copy; 2022 - AspNetCoreMvcHtmx - <a asp-action="Privacy"
+            class="text-blue-500" asp-controller="Home">Privacy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+@Html.HtmxAntiforgeryScript()
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

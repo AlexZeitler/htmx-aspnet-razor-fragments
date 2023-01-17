@@ -1,0 +1,44 @@
+name: MyRazorPagesApp
+root: ./
+
+# Runs before everything. Use it to start daemons etc.
+on_project_start:
+  - echo starting stack...
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: input
+
+pre_window:
+windows:
+  - workspace:
+      layout: even-vertical
+      panes:
+        - work:
+            - printf '\033]2;%s\033\\' 'workspace'
+            - clear
+  - app:
+      layout: even-vertical
+      panes:
+        - server:
+            - printf '\033]2;%s\033\\' 'app'
+            - cd src/AspNetCoreMvcHtmx
+            - kill -9 $(lsof -t -i tcp:5001)
+            - kill -9 $(lsof -t -i tcp:5000)
+            - dotnet watch run
+        - workspace:
+            - printf '\033]2;%s\033\\' 'app-workspace'
+            - cd src/AspNetCoreMvcHtmx
+            - clear
+  - frontend:
+      layout: even-vertical
+      panes:
+        - tailwind:
+            - printf '\033]2;%s\033\\' 'vite-build'
+            - cd src/AspNetCoreMvcHtmx
+            - npx tailwindcss -i ./wwwroot/css/input.css -o ./wwwroot/css/site.css --watch

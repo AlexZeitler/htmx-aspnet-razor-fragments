@@ -1,0 +1,37 @@
+name: .NET Core Build with Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # use ubuntu for more build minutes
+    runs-on: ubuntu-latest
+    # use release mode for all steps
+    env:
+      config: 'Debug'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+        
+      - name: Install dependencies
+        run: |
+          cd src 
+          dotnet restore
+      - name: Build
+        run: |
+          cd src 
+          dotnet build --configuration $config --no-restore
+          cd AspNetCoreMvcHtmx
+          docker build . -t aspnetcoremvchtmx
+      - name: Test
+        run: |
+          cd src 
+          dotnet test -l "console;verbosity=detailed"
