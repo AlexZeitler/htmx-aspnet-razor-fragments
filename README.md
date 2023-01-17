@@ -1,92 +1,129 @@
 # AspNet (Core)  MVC Template
 
-This is a GitHub Template for ASP.NET Core MVC using .NET 6.
-
-It contains
-
-* a .NET 6 Solution
-* a ASP.NET Core MVC 6 project
-* HTMX
-* HTMX .NET extensions
-* TailwindCSS 3 including hot reload (JIT)
-* tmux/tmuxinator windows / panes for development
+This is an attempt to implement some sort of Fragment support using ASP.NET Core Razor as described in the HTMX essay [Template Fragments](https://htmx.org/essays/template-fragments/).
 
 ## Usage
 
-### Create a new Repository
+The goal is to have a master and detail view and host them within the same `cshtml` file.
 
-* Create a new Repository from this Template as described [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-* Clone your new repository locally
+First, we define some models:
 
-### Run the solution
+```csharp
+public class FragmentModel
+{
+  public FragmentModel(
+    string fragmentId
+  )
+  {
+    FragmentId = fragmentId;
+  }
 
-#### First time
+  public string FragmentId { get; set; }
+}
 
-```
-yarn install
-cd src/RazorFragments
-yarn install
-libman restore
-```
+public class ChildModel : FragmentModel
+{
+  public int Id { get; }
 
-#### Development
+  public ChildModel(
+    int id
+  ) : base("Detail")
+  {
+    Id = id;
+  }
+}
 
-```
-yarn start
-```
+public class ParentModel : FragmentModel
+{
+  public List<ChildModel> Childs { get; }
 
-`tmuxinator` starts a new session with three windows:
-
-##### Workspace
-![](assets/screenshot_iterm_workspace.png)
-
-##### App (.NET output)
-![](assets/screenshot_iterm_app.png)
-
-##### Frontend (tailwind build)
-![](assets/screenshot_item_tailwind.png)
-
-Browse https://localhost:5001
-
-![](assets/screenshot.png)
-
-#### HTMX interaction
-
-HTMX usage is shown on the Registration view, even the password strength indicator is build with pure ASP.NET and HTMX (no additional JavaScript)
-
-![](assets/PasswordStrengthIndicator.gif)
-
-## Known issues
-
-* Not tested on Windows
-* JetBrains Rider code completion does not work for TailwindCSS 3 JIT mode in `.cshtml` files [currently](https://youtrack.jetbrains.com/issue/RIDER-58725).
-
-## Renaming solution / project / folders
-
-Of course, you want to rename the projects files to match our needs.
-
-You can use these commands, e.g. `RazorFragments`  gets renamed to `MyApp`:
-
-### Rename all references inside the files
-
-#### macOS
-
-```shell
-LC_ALL=C find . -type f -name '*.*' -not \( -path './node_modules/*' -o -path './src/RazorFragments/node_modules/*' -o -path './assets' \) -exec sed -i '' 's|RazorFragments|MyApp|g' {} \;
+  public ParentModel(
+    List<ChildModel> childs
+  ) : base("Full")
+  {
+    Childs = childs;
+  }
+}
 ```
 
-#### Linux
+Then we define a View file:
 
-```shell
-LC_ALL=C find . -type f -name '*.*' -not \( -path './node_modules/*' -o -path './src/RazorFragments/node_modules/*' -o -path './assets' \) -exec sed -i 's/RazorFragments/MyApp/g' {} \;
+```csharp
+@model RazorFragments.Models.FragmentModel
+
+@{
+  ViewBag.Title = "title";
+  Layout = "_Layout";
+}
+
+
+@{
+  void RenderDetail(
+    ChildModel child)
+  {
+    <div class="bg-gray-200">
+      @Html.ActionLink(child.Id.ToString(), "Detail", new
+      {
+        id = child.Id
+      })
+    </div>
+  }
+
+  void RenderFull(
+    ParentModel parent)
+  {
+    <div class="bg-blue-500 p-4">
+      @{
+        @foreach (var parentChild in parent.Childs)
+        {
+          RenderDetail(parentChild);
+        }
+      }
+    </div>
+  }
+}
+
+
+@{
+  switch (Model.FragmentId)
+  {
+    case "Full":
+      RenderFull(Model as ParentModel);
+      break;
+    case "Detail":
+      RenderDetail(Model as ChildModel);
+      break;
+  }
+}
 ```
 
-### Rename files and folders
+And everything gets tied together in our controller:
 
-#### macOS and Linux
+```csharp
+public class RazorFragmentController : Controller
+{
+  // GET
+  public IActionResult Index()
+  {
+    return View(
+      new ParentModel(
+        new List<ChildModel>()
+        {
+          new(1),
+          new(2)
+        }
+      )
+    );
+  }
 
-```bash
-find . -depth -name "*RazorFragments*" | \
-while IFS= read -r ent; do mv $ent ${ent%RazorFragments*}MyApp${ent##*RazorFragments}; done
-
+  [Route("/detail/{id}")]
+  public IActionResult Detail(
+    [FromRoute] int id
+  )
+  {
+    return View("Index", new ChildModel(id));
+  }
+}
 ```
+
+If you want to become native fragment support part of Razor, please support this [issue](https://github.com/dotnet/aspnetcore/issues/43713) on GitHub.
