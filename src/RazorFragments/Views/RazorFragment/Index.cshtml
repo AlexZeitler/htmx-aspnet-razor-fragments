@@ -1,0 +1,46 @@
+@model RazorFragments.Models.FragmentModel
+
+@{
+  ViewBag.Title = "title";
+  Layout = "_Layout";
+}
+
+
+@{
+  void RenderDetail(
+    ChildModel child)
+  {
+    <div class="bg-gray-200">
+      @Html.ActionLink(child.Id.ToString(), "Detail", new
+      {
+        id = child.Id
+      })
+    </div>
+  }
+
+  void RenderFull(
+    ParentModel parent)
+  {
+    <div class="bg-blue-500 p-4">
+      @{
+        @foreach (var parentChild in parent.Childs)
+        {
+          RenderDetail(parentChild);
+        }
+      }
+    </div>
+  }
+}
+
+
+@{
+  switch (Model.FragmentId)
+  {
+    case "Full":
+      RenderFull(Model as ParentModel);
+      break;
+    case "Detail":
+      RenderDetail(Model as ChildModel);
+      break;
+  }
+}
