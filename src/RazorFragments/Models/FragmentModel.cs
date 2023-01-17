@@ -1,37 +1,37 @@
 namespace RazorFragments.Models;
 
-  public class FragmentModel
+public class FragmentModel
+{
+  public FragmentModel(
+    string fragmentId
+  )
   {
-    public FragmentModel(
-      string fragmentId
-    )
-    {
-      FragmentId = fragmentId;
-    }
-
-    public string FragmentId { get; set; }
+    FragmentId = fragmentId;
   }
 
-  public class ChildModel : FragmentModel
+  public string FragmentId { get; set; }
+}
+
+public class ChildModel : FragmentModel
+{
+  public int Id { get; }
+
+  public ChildModel(
+    int id
+  ) : base("Detail")
   {
-    public int Id { get; }
-
-    public ChildModel(
-      int id
-    ) : base("Detail")
-    {
-      Id = id;
-    }
+    Id = id;
   }
+}
 
-  public class ParentModel : FragmentModel
+public class ParentModel : FragmentModel
+{
+  public List<ChildModel> Childs { get; }
+
+  public ParentModel(
+    List<ChildModel> childs
+  ) : base("Full")
   {
-    public List<ChildModel> Childs { get; }
-
-    public ParentModel(
-      List<ChildModel> childs
-    ) : base("Full")
-    {
-      Childs = childs;
-    }
+    Childs = childs;
   }
+}
