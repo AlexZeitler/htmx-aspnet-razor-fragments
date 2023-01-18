@@ -1,37 +1,9 @@
 namespace RazorFragments.Models;
 
-public class FragmentModel
+public abstract record FragmentModel
 {
-  public FragmentModel(
-    string fragmentId
-  )
-  {
-    FragmentId = fragmentId;
-  }
+  private FragmentModel() { } //Block additional subtyping
 
-  public string FragmentId { get; set; }
-}
-
-public class ChildModel : FragmentModel
-{
-  public int Id { get; }
-
-  public ChildModel(
-    int id
-  ) : base("Detail")
-  {
-    Id = id;
-  }
-}
-
-public class ParentModel : FragmentModel
-{
-  public List<ChildModel> Childs { get; }
-
-  public ParentModel(
-    List<ChildModel> childs
-  ) : base("Full")
-  {
-    Childs = childs;
-  }
+  public record Child(int Id) : FragmentModel;
+  public record Parent(List<Child> Childs) : FragmentModel;
 }

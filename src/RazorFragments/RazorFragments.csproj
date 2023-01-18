@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,6 +15,11 @@
         <PackageReference Include="Serilog" Version="2.11.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+        <PackageReference Include="SvSoft.Analyzers.ClosedTypeHierarchyDiagnosticSuppression" Version="1.1.0" PrivateAssets="All" />
+      
+        <!--Overridden nuget versions to resolve conflicting dependencies in ClosedTypeHierarchyDiagnosticSuppression-->
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.*" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Csharp" Version="4.*" />
     </ItemGroup>
 
 </Project>

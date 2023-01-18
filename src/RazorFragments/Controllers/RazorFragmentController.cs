@@ -9,8 +9,8 @@ public class RazorFragmentController : Controller
   public IActionResult Index()
   {
     return View(
-      new ParentModel(
-        new List<ChildModel>()
+      new FragmentModel.Parent(
+        new List<FragmentModel.Child>()
         {
           new(1),
           new(2)
@@ -24,6 +24,6 @@ public class RazorFragmentController : Controller
     [FromRoute] int id
   )
   {
-    return View("Index", new ChildModel(id));
+    return View("Index", new FragmentModel.Child(id));
   }
 }
