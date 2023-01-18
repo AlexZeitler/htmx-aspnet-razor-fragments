@@ -126,4 +126,16 @@ public class RazorFragmentController : Controller
 }
 ```
 
+## Starting the sample
+
+```bash
+yarn
+cd src/RazorFragments
+yarn
+libman restore
+cd ../..
+yarn start
+```
+Browse <https://localhost:5001/razorfragments>
+
 If you want to become native fragment support part of Razor, please support this [issue](https://github.com/dotnet/aspnetcore/issues/43713) on GitHub.
