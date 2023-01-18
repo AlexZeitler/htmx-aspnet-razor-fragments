@@ -6,8 +6,7 @@
 
 
 @{
-  void RenderDetail(
-    ChildModel child)
+  void RenderDetail(FragmentModel.Child child)
   {
     <div class="bg-gray-200">
       @Html.ActionLink(child.Id.ToString(), "Detail", new
@@ -17,8 +16,7 @@
     </div>
   }
 
-  void RenderFull(
-    ParentModel parent)
+  void RenderFull(FragmentModel.Parent parent)
   {
     <div class="bg-blue-500 p-4">
       @{
@@ -33,13 +31,13 @@
 
 
 @{
-  switch (Model.FragmentId)
+  switch (Model)
   {
-    case "Full":
-      RenderFull(Model as ParentModel);
+    case FragmentModel.Parent parent:
+      RenderFull(parent);
       break;
-    case "Detail":
-      RenderDetail(Model as ChildModel);
+    case FragmentModel.Child child:
+      RenderDetail(child);
       break;
   }
 }

@@ -4,3 +4,8 @@ root = true
 indent_style = space
 indent_size = 2
 insert_final_newline = true
+
+[*.cs]
+dotnet_diagnostic.IDE0010.severity = error
+dotnet_diagnostic.IDE0072.severity = error
+dotnet_diagnostic.CS8509.severity = error
