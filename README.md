@@ -1,4 +1,4 @@
-# AspNet (Core)  MVC Template
+# HTMX + ASP.NET Core Razor "Fragments" 
 
 This is an attempt to implement some sort of Fragment support using ASP.NET Core Razor as described in the HTMX essay [Template Fragments](https://htmx.org/essays/template-fragments/).
 
