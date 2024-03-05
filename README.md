@@ -136,6 +136,6 @@ libman restore
 cd ../..
 yarn start
 ```
-Browse <https://localhost:5001/razorfragments>
+Browse <https://localhost:5001/razorfragment>
 
 If you want to become native fragment support part of Razor, please support this [issue](https://github.com/dotnet/aspnetcore/issues/43713) on GitHub.

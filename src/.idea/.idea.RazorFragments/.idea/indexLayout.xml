@@ -3,6 +3,7 @@
   <component name="UserContentModel">
     <attachedFolders>
       <Path>../../RazorFragmentsTemplate</Path>
+      <Path>../../htmx-aspnet-razor-fragments</Path>
       <Path>../../spike-razor-fragments</Path>
     </attachedFolders>
     <explicitIncludes />
